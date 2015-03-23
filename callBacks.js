@@ -1,5 +1,8 @@
+// various callback function tests
+
 // JSON ancestry file
 var ancestry = require('./ancestry');
+// creates an array of objects
 ancestry = (JSON.parse(ancestry));
 
 
@@ -48,6 +51,7 @@ function forEach(object, callback) {
 	}
 }
 
+// filters an array
 function filterEasy(array, test) {
 	var list = [];
 
@@ -60,11 +64,10 @@ function filterEasy(array, test) {
 }
 
 
-// var listPrint = filterEasy(testObj, function (value) {
-	// console.log(value);
-	// return value < 2000;
-// });
-// console.log(listPrint);
+ var listPrint = filterEasy(testArr, function (value) {
+	return value < 2000;
+ });
+ console.log(listPrint);
 
 
  // function that filters out values in an object into an array that don't pass a test
@@ -89,39 +92,20 @@ function map(arr, transform) {
 }
 
 
-// find all years
+// find all number data in object or array
 var ancestryNums = (filter(ancestry, function(number) {
 	return typeof number === "number";
 }));
 
 
+// creates an object by name pointing to corresponding object
 var byName = {};
 ancestry.forEach(function(person) {
   byName[person.name] = person;
 });
-
-function reduceAncestors(person, f, defaultValue) {
-  function valueFor(person) {
-    if (person == null)
-      return defaultValue;
-    else
-      return f(person, valueFor(byName[person.mother]),
-                       valueFor(byName[person.father]));
-  }
-  return valueFor(person);
-}
+console.log(byName)
 
 
-function sharedDNA(person, fromMother, fromFather) {
-  if (person.name == "Pauwels van Haverbeke")
-    return 1;
-  else
-  	
-    return (fromMother + fromFather) / 2;
-}
-
-var ph = byName["Philibert Haverbeke"];
-console.log(reduceAncestors(ph, sharedDNA, 0) / 4);
 
 
 
