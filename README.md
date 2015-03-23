@@ -1,2 +1,5 @@
 # javascript
-Repository for Javascript exercises
+
+Repository for storing Javascript exercises
+
+
